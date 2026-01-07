@@ -1,0 +1,61 @@
+# ココロ建設DX - LINE LIFFデモ
+
+建設・設備業向けのLINE LIFFデモアプリケーションです。展示会でのチラシ配布用に作成されました。
+
+## 概要
+
+LINEのLIFF（LINE Front-end Framework）を使用した、現地調査・見積依頼フォームのデモです。
+
+## 機能
+
+### 3画面構成
+
+1. **トップ画面** - キャッチコピーと開始ボタン
+2. **入力画面** - 見積依頼フォーム
+3. **完了画面** - 受付完了メッセージ
+
+### リッチメニュー用ページ
+
+- **施工事例** (`?page=works`) - 外構・塗装・水回りの施工事例
+- **会社情報** (`?page=about`) - 会社概要・所在地・営業時間・事業内容
+
+## 技術スタック
+
+- Vanilla JavaScript
+- Tailwind CSS (CDN)
+- LINE LIFF SDK
+
+## リッチメニュー設定用リンク
+
+| ボタン | リンク |
+|--------|--------|
+| 見積・相談 | `https://liff.line.me/2008841488-GtLX9MDH` |
+| 施工事例 | `https://liff.line.me/2008841488-GtLX9MDH?page=works` |
+| 会社情報 | `https://liff.line.me/2008841488-GtLX9MDH?page=about` |
+
+## デプロイ
+
+GitHub Pages: https://mapcocoro.github.io/LINEminikensetsuDX/
+
+## LIFF設定
+
+LINE DevelopersコンソールでLIFFアプリを作成し、エンドポイントURLにGitHub PagesのURLを設定してください。
+
+LIFF ID: `2008841488-GtLX9MDH`
+
+## ファイル構成
+
+```
+LINEminikensetsuDX/
+└── index.html    # メインファイル（全画面含む）
+```
+
+## デザイン
+
+- メインカラー: 紺色 (#1e3a8a)
+- アクセントカラー: オレンジ (#f97316)
+- フォント: Noto Sans JP
+
+## 注意事項
+
+これはデモ用アプリケーションです。実際のデータ送信は行われません。
