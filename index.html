@@ -42,7 +42,7 @@
     }
   </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-100 min-h-screen" style="visibility: hidden;">
 
   <!-- ヘッダー（常に表示） -->
   <header class="fixed top-0 left-0 right-0 bg-primary text-white text-center py-2 text-xs z-50 shadow-md">
@@ -50,7 +50,7 @@
   </header>
 
   <!-- トップ画面 -->
-  <div id="screen-top" class="screen active flex-col items-center justify-center min-h-screen px-6 pt-12 pb-20">
+  <div id="screen-top" class="screen flex-col items-center justify-center min-h-screen px-6 pt-12 pb-20">
     <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md text-center">
       <!-- ロゴ・アイコン -->
       <div class="w-24 h-24 mx-auto mb-6 bg-primary rounded-full flex items-center justify-center">
@@ -593,6 +593,9 @@
       } else {
         showScreen('top');
       }
+
+      // 画面決定後に表示
+      document.body.style.visibility = 'visible';
     }
 
     // 初期化
