@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ココロ建設DX - 体験デモ版</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1e3a8a',
+            primaryDark: '#1e2d5f',
+            accent: '#f97316',
+            accentHover: '#ea580c'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .screen {
+      display: none;
+    }
+    .screen.active {
+      display: flex;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      background: transparent;
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- ヘッダー（常に表示） -->
+  <header class="fixed top-0 left-0 right-0 bg-primary text-white text-center py-2 text-xs z-50 shadow-md">
+    【体験デモ版】ココロ建設DX
+  </header>
+
+  <!-- トップ画面 -->
+  <div id="screen-top" class="screen active flex-col items-center justify-center min-h-screen px-6 pt-12 pb-20">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md text-center">
+      <!-- ロゴ・アイコン -->
+      <div class="w-24 h-24 mx-auto mb-6 bg-primary rounded-full flex items-center justify-center">
+        <svg class="w-14 h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+        </svg>
+      </div>
+
+      <!-- キャッチコピー -->
+      <h1 class="text-2xl font-bold text-primary mb-4 leading-tight">
+        現地調査・見積依頼を<br>LINEで完結
+      </h1>
+      <p class="text-gray-600 mb-8 text-sm leading-relaxed">
+        24時間いつでも受付可能<br>
+        写真を送るだけでかんたん見積もり
+      </p>
+
+      <!-- 開始ボタン -->
+      <button
+        onclick="showScreen('input')"
+        class="w-full bg-accent hover:bg-accentHover text-white font-bold py-4 px-6 rounded-xl text-lg shadow-lg transition-all duration-200 active:scale-95"
+      >
+        入力を開始する
+      </button>
+    </div>
+
+    <!-- 特徴アイコン -->
+    <div class="flex justify-center gap-8 mt-8">
+      <div class="text-center">
+        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md mb-2 mx-auto">
+          <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <span class="text-xs text-gray-600">24時間受付</span>
+      </div>
+      <div class="text-center">
+        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md mb-2 mx-auto">
+          <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <span class="text-xs text-gray-600">写真で簡単</span>
+      </div>
+      <div class="text-center">
+        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md mb-2 mx-auto">
+          <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <span class="text-xs text-gray-600">迅速対応</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 入力画面 -->
+  <div id="screen-input" class="screen flex-col min-h-screen px-4 pt-14 pb-6">
+    <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md mx-auto my-4">
+      <h2 class="text-xl font-bold text-primary mb-6 text-center">お問い合わせ内容</h2>
+
+      <form id="inquiry-form" class="space-y-5">
+        <!-- ご用件 -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            <span class="text-accent">●</span> ご用件
+          </label>
+          <select
+            id="purpose"
+            required
+            class="w-full border-2 border-gray-200 rounded-xl py-4 px-4 text-base focus:border-primary focus:outline-none bg-white appearance-none"
+            style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%231e3a8a%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.5rem;"
+          >
+            <option value="">選択してください</option>
+            <option value="見積依頼">見積依頼</option>
+            <option value="現地調査">現地調査</option>
+            <option value="修理相談">修理相談</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+
+        <!-- 対象 -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            <span class="text-accent">●</span> 対象
+          </label>
+          <select
+            id="target"
+            required
+            class="w-full border-2 border-gray-200 rounded-xl py-4 px-4 text-base focus:border-primary focus:outline-none bg-white appearance-none"
+            style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%231e3a8a%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.5rem;"
+          >
+            <option value="">選択してください</option>
+            <option value="外構">外構</option>
+            <option value="塗装">塗装</option>
+            <option value="水回り">水回り</option>
+            <option value="電気">電気</option>
+            <option value="内装">内装</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+
+        <!-- 訪問希望日 -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            <span class="text-accent">●</span> 訪問希望日
+          </label>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="text-sm text-gray-500 w-16">第1希望</span>
+              <div class="relative flex-1">
+                <input
+                  type="date"
+                  id="date1"
+                  required
+                  class="w-full border-2 border-gray-200 rounded-xl py-3 px-4 text-base focus:border-primary focus:outline-none"
+                >
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-sm text-gray-500 w-16">第2希望</span>
+              <div class="relative flex-1">
+                <input
+                  type="date"
+                  id="date2"
+                  class="w-full border-2 border-gray-200 rounded-xl py-3 px-4 text-base focus:border-primary focus:outline-none"
+                >
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-sm text-gray-500 w-16">第3希望</span>
+              <div class="relative flex-1">
+                <input
+                  type="date"
+                  id="date3"
+                  class="w-full border-2 border-gray-200 rounded-xl py-3 px-4 text-base focus:border-primary focus:outline-none"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 現場写真 -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            <span class="text-gray-400">○</span> 現場写真（任意）
+          </label>
+          <div class="relative">
+            <input
+              type="file"
+              id="photos"
+              accept="image/*"
+              multiple
+              class="hidden"
+              onchange="updateFileLabel(this)"
+            >
+            <label
+              for="photos"
+              class="flex items-center justify-center gap-2 w-full border-2 border-dashed border-gray-300 rounded-xl py-4 px-4 text-gray-500 cursor-pointer hover:border-primary hover:text-primary transition-colors"
+            >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <span id="file-label">写真を選択</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 送信ボタン -->
+        <div class="pt-4">
+          <button
+            type="submit"
+            class="w-full bg-accent hover:bg-accentHover text-white font-bold py-4 px-6 rounded-xl text-lg shadow-lg transition-all duration-200 active:scale-95"
+          >
+            送信する
+          </button>
+        </div>
+      </form>
+
+      <!-- 戻るボタン -->
+      <button
+        onclick="showScreen('top')"
+        class="w-full mt-4 text-gray-500 py-2 text-sm hover:text-primary transition-colors"
+      >
+        ← トップに戻る
+      </button>
+    </div>
+  </div>
+
+  <!-- 完了画面 -->
+  <div id="screen-complete" class="screen flex-col items-center justify-center min-h-screen px-6 pt-12 pb-20">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md text-center">
+      <!-- 完了アイコン -->
+      <div class="w-24 h-24 mx-auto mb-6 bg-green-500 rounded-full flex items-center justify-center animate-bounce">
+        <svg class="w-14 h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+
+      <!-- 完了メッセージ -->
+      <h2 class="text-2xl font-bold text-primary mb-4">
+        受付しました
+      </h2>
+      <p class="text-gray-600 mb-6 leading-relaxed">
+        お問い合わせありがとうございます。<br>
+        担当者より折り返しご連絡いたします。
+      </p>
+
+      <!-- 注意書き -->
+      <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6">
+        <p class="text-yellow-700 text-sm">
+          ※デモのため実際のやり取りは発生しません
+        </p>
+      </div>
+
+      <!-- カウントダウン -->
+      <p id="countdown-text" class="text-gray-400 text-sm">
+        <span id="countdown">5</span>秒後に自動で閉じます...
+      </p>
+    </div>
+  </div>
+
+  <!-- フッター（常に表示） -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-primary text-white text-center py-2 text-xs z-50">
+    Powered by ココロAI
+  </footer>
+
+  <script>
+    // REPLACE WITH YOUR LIFF ID
+    const LIFF_ID = 'YOUR_LIFF_ID_HERE';
+
+    let isLiffInitialized = false;
+
+    // LIFF初期化
+    async function initializeLiff() {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+        isLiffInitialized = true;
+        console.log('LIFF initialized successfully');
+      } catch (error) {
+        console.error('LIFF initialization failed:', error);
+      }
+    }
+
+    // 画面切り替え
+    function showScreen(screenName) {
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
+      document.getElementById(`screen-${screenName}`).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    // ファイル選択ラベル更新
+    function updateFileLabel(input) {
+      const label = document.getElementById('file-label');
+      if (input.files.length > 0) {
+        label.textContent = `${input.files.length}枚の写真を選択中`;
+        label.classList.add('text-primary', 'font-medium');
+      } else {
+        label.textContent = '写真を選択';
+        label.classList.remove('text-primary', 'font-medium');
+      }
+    }
+
+    // フォーム送信処理
+    document.getElementById('inquiry-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const purpose = document.getElementById('purpose').value;
+      const target = document.getElementById('target').value;
+
+      // LINEメッセージ送信
+      if (isLiffInitialized && liff.isInClient()) {
+        try {
+          await liff.sendMessages([
+            {
+              type: 'text',
+              text: `【デモ】${purpose}を送信しました（実際には送信されません）`
+            }
+          ]);
+          console.log('Message sent successfully');
+        } catch (error) {
+          console.error('Failed to send message:', error);
+        }
+      } else {
+        console.log('Not in LIFF client or not initialized - skipping sendMessages');
+      }
+
+      // 完了画面を表示
+      showScreen('complete');
+
+      // カウントダウン開始
+      startCountdown();
+    });
+
+    // カウントダウン処理
+    function startCountdown() {
+      let count = 5;
+      const countdownEl = document.getElementById('countdown');
+      const countdownTextEl = document.getElementById('countdown-text');
+
+      const timer = setInterval(() => {
+        count--;
+        countdownEl.textContent = count;
+
+        if (count <= 0) {
+          clearInterval(timer);
+          countdownTextEl.textContent = '閉じています...';
+
+          // LIFFウィンドウを閉じる
+          if (isLiffInitialized && liff.isInClient()) {
+            liff.closeWindow();
+          } else {
+            // ブラウザの場合はトップ画面に戻る
+            showScreen('top');
+            document.getElementById('inquiry-form').reset();
+            document.getElementById('file-label').textContent = '写真を選択';
+          }
+        }
+      }, 1000);
+    }
+
+    // 日付入力の最小値を今日に設定
+    function setMinDate() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('date1').min = today;
+      document.getElementById('date2').min = today;
+      document.getElementById('date3').min = today;
+    }
+
+    // 初期化
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeLiff();
+      setMinDate();
+    });
+  </script>
+</body>
+</html>
