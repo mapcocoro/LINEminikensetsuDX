@@ -573,14 +573,6 @@
       }, 1000);
     }
 
-    // 日付入力の最小値を今日に設定
-    function setMinDate() {
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('date1').min = today;
-      document.getElementById('date2').min = today;
-      document.getElementById('date3').min = today;
-    }
-
     // URLパラメータで初期画面を決定
     function handleUrlParams() {
       const params = new URLSearchParams(window.location.search);
@@ -601,7 +593,6 @@
     // 初期化
     document.addEventListener('DOMContentLoaded', function() {
       initializeLiff();
-      setMinDate();
       handleUrlParams();
     });
   </script>
