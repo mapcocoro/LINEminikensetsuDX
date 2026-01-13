@@ -45,6 +45,14 @@ GitHub Pagesで自動デプロイ。mainブランチへのpushで更新される
 
 公開URL: https://mapcocoro.github.io/LINEminikensetsuDX/
 
+## フォーム送信時の動作
+
+`liff.sendMessages()` を使用して、入力内容をLINEトークに整形表示する。
+
+- 必須項目: ご用件、対象
+- 任意項目: 訪問希望日（第1・第2希望 + 自由記述）、現場エリア、ご依頼詳細
+- 写真: フォームからは送信不可（LIFFの制限）→ メッセージ内で案内し、通常のLINEで送ってもらう
+
 ## 注意点
 
 - デモ用のため実際のデータ送信は行わない
