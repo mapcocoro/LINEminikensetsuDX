@@ -65,7 +65,7 @@
       </h1>
       <p class="text-gray-600 mb-8 text-sm leading-relaxed">
         24時間いつでも受付可能<br>
-        写真を送るだけでかんたん見積もり
+        フォーム入力でかんたん見積もり
       </p>
 
       <!-- 開始ボタン -->
@@ -90,11 +90,10 @@
       <div class="text-center">
         <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md mb-2 mx-auto">
           <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
           </svg>
         </div>
-        <span class="text-xs text-gray-600">写真で簡単</span>
+        <span class="text-xs text-gray-600">入力簡単</span>
       </div>
       <div class="text-center">
         <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md mb-2 mx-auto">
@@ -605,7 +604,6 @@
             // ブラウザの場合はトップ画面に戻る
             showScreen('top');
             document.getElementById('inquiry-form').reset();
-            document.getElementById('file-label').textContent = '写真を選択';
           }
         }
       }, 1000);
