@@ -152,6 +152,41 @@
           </select>
         </div>
 
+        <!-- 建物種類 -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            <span class="text-gray-400">○</span> 建物種類（任意）
+          </label>
+          <select
+            id="building-type"
+            class="w-full border-2 border-gray-200 rounded-xl py-4 px-4 text-base focus:border-primary focus:outline-none bg-white appearance-none"
+            style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%231e3a8a%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.5rem;"
+          >
+            <option value="">選択してください</option>
+            <option value="戸建て">戸建て</option>
+            <option value="マンション・アパート">マンション・アパート</option>
+            <option value="店舗・事務所">店舗・事務所</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+
+        <!-- 緊急度 -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            <span class="text-gray-400">○</span> 緊急度（任意）
+          </label>
+          <select
+            id="urgency"
+            class="w-full border-2 border-gray-200 rounded-xl py-4 px-4 text-base focus:border-primary focus:outline-none bg-white appearance-none"
+            style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%231e3a8a%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.5rem;"
+          >
+            <option value="">選択してください</option>
+            <option value="急ぎ（1週間以内）">急ぎ（1週間以内）</option>
+            <option value="通常（2〜3週間）">通常（2〜3週間）</option>
+            <option value="いつでも可">いつでも可</option>
+          </select>
+        </div>
+
         <!-- 訪問希望日 -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -505,6 +540,8 @@
       // フォームの値を取得
       const purpose = document.getElementById('purpose').value;
       const target = document.getElementById('target').value;
+      const buildingType = document.getElementById('building-type').value;
+      const urgency = document.getElementById('urgency').value;
       const date1 = document.getElementById('date1').value;
       const date2 = document.getElementById('date2').value;
       const visitDateNote = document.getElementById('visit-date-note').value;
@@ -523,14 +560,20 @@
 
       // メッセージ本文を作成
       let messageLines = [
-        '━━━━━━━━━━━━━━━━',
+        '━━━━━━━━',
         '📋 ご依頼内容',
-        '━━━━━━━━━━━━━━━━',
+        '━━━━━━━━',
         '',
         `■ ご用件: ${purpose}`,
         `■ 対象: ${target}`
       ];
 
+      if (buildingType) {
+        messageLines.push(`■ 建物種類: ${buildingType}`);
+      }
+      if (urgency) {
+        messageLines.push(`■ 緊急度: ${urgency}`);
+      }
       if (visitDateText) {
         messageLines.push(`■ 訪問希望日: ${visitDateText}`);
       }
@@ -543,10 +586,10 @@
 
       messageLines.push(
         '',
-        '━━━━━━━━━━━━━━━━',
+        '━━━━━━━━',
         '📷 現場写真があれば',
         '　 このトークに送信してください',
-        '━━━━━━━━━━━━━━━━'
+        '━━━━━━━━'
       );
 
       const messageText = messageLines.join('\n');
